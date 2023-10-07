@@ -16,7 +16,7 @@ class ProfileListTile extends StatelessWidget {
         function();
       },
       leading: ImagesDesign(imagePath: imagePath),
-      title: SubtitleTextWidget(label: text),
+      title: Text(text),
       trailing: const Icon(IconlyLight.arrow_right_2),
     );
   }

@@ -15,10 +15,22 @@ class MyApp extends StatelessWidget {
       providers: providerList,
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
         return MaterialApp(
-            title: 'Restaurant',
-            theme: Styles.themeData(
-                isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-            home: const RootScreen());
+          title: 'Restaurant',
+          theme: Styles.themeData(
+              isDarkTheme: themeProvider.getIsDarkTheme, context: context),
+          home: const SplashScreen(),
+          routes: {
+            ProductDetails.routName: (context) => ProductDetails(),
+            WishlistScreen.routName: (context) => const WishlistScreen(),
+            ViewedScreen.routName: (context) => const ViewedScreen(),
+            LoginScreen.routName: (context) => const LoginScreen(),
+            RegisterScreen.routName: (context) => const RegisterScreen(),
+            OrderScreen.routName: (context) => const OrderScreen(),
+            ForgotScreen.routName: (context) => const ForgotScreen(),
+            SearchScreen.routName: (context) => const SearchScreen(),
+          },
+          // routes: ,
+        );
       }),
     );
   }

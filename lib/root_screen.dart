@@ -9,7 +9,7 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   late PageController controller;
-  int currentScreen = 3;
+  int currentScreen = 0;
   List<Widget> Screens = const [
     HomeScreen(),
     SearchScreen(),
@@ -25,6 +25,7 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       body: PageView(
         controller: controller,
@@ -42,23 +43,26 @@ class _RootScreenState extends State<RootScreen> {
           });
           controller.jumpToPage(currentScreen);
         },
-        destinations: const [
-          NavigationDestination(
+        destinations: [
+          const NavigationDestination(
               selectedIcon: Icon(IconlyBold.home),
               icon: Icon(IconlyLight.home),
               label: 'Home'),
-          NavigationDestination(
+          const NavigationDestination(
               selectedIcon: Icon(IconlyBold.search),
               icon: Icon(IconlyLight.search),
               label: 'Search'),
           NavigationDestination(
-              selectedIcon: Icon(IconlyBold.bag_2),
+              selectedIcon: const Icon(Icons.add_shopping_cart_rounded),
               icon: Badge(
-                label: Text('5'),
-                child: Icon(IconlyLight.bag_2),
+                label: Text(
+                  cartProvider.getCartItems.length.toString(),
+                  style: const TextStyle(fontSize: 10),
+                ),
+                child: const Icon(Icons.add_shopping_cart_rounded),
               ),
               label: 'Cart'),
-          NavigationDestination(
+          const NavigationDestination(
               selectedIcon: Icon(IconlyBold.profile),
               icon: Icon(IconlyLight.profile),
               label: 'Profile'),

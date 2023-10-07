@@ -6,34 +6,72 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isEmpty
-        ? Scaffold(
-            body: EmptyPageWidget(
-                imagePath: AppImagesPath.profileAllOrder,
-                title: 'Cart now is empty',
-                subTitle:
-                    'hbfjgdlfkjgdfjglkfdjgkldfjgldfkjgdlkfjgdklm,.mvx,.cjiogud'))
-        : Scaffold(
-            bottomSheet: BottomCheckout(),
-            appBar: AppBar(
-              title: const Text('Cart Screen'),
-              //Text('Cart Screen'),
-              // AppBarTitle(title: 'Cart Screen'),
-              actions: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ))
+    final cartProvider = Provider.of<CartProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return Scaffold(
+      bottomSheet: const BottomCheckout(),
+      appBar: AppBar(
+        title: Text(
+          'Cart Screen (${cartProvider.getCartItems.length})',
+          style: TextStyle(
+              color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+              fontSize: 23,
+              fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: themeProvider.getIsDarkTheme
+            ? AppColors.darkScaffoldColor
+            : AppColors.lightScaffoldColor,
+        //Text('Cart Screen'),
+        // AppBarTitle(title: 'Cart Screen'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                DialogWarningFct.showDialogWarning(
+                  context: context,
+                  subtitle: 'Are you sure??',
+                  fct: () async {
+                    cartProvider.clearCart();
+                  },
+                  isError: false,
+                );
+              },
+              icon: Icon(
+                Icons.delete,
+                color: themeProvider.getIsDarkTheme
+                    ? AppColors.darkPrimaryColor
+                    : AppColors.lightPrimaryColor,
+              ))
+        ],
+      ),
+      body: cartProvider.getCartItems.isEmpty
+          ? EmptyPageWidget(
+              imagePath: AppImagesPath.profileAllOrder,
+              title: 'Cart now is empty',
+              subTitle: 'Take a look at our delicious recipes and dishes')
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: cartProvider.getCartItems.length,
+                    itemBuilder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                        value: cartProvider.getCartItems.values
+                            .toList()
+                            .reversed
+                            .toList()[index],
+                        child: CartWidget(
+                            q: cartProvider.getCartItems.values
+                                .toList()[index]
+                                .quantity),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: kBottomNavigationBarHeight + 55,
+                )
               ],
             ),
-            body: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return CartWidget();
-              },
-            ),
-          );
+    );
   }
 }

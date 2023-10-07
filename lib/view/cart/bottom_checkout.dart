@@ -5,35 +5,78 @@ class BottomCheckout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
-        color: Colors.purple,
+        color: themeProvider.getIsDarkTheme
+            ? AppColors.darkPrimaryColor
+            : AppColors.lightPrimaryColor,
       ),
-      height: kBottomNavigationBarHeight + 30,
+      height: kBottomNavigationBarHeight + 50,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-        child: Row(
+        padding: EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TitlesTextWidget(label: 'label'),
-                  SubtitleTextWidget(label: '16.22'),
+                  Text(
+                    'Total',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: themeProvider.getIsDarkTheme
+                          ? Colors.black
+                          : Colors.white,
+                    ),
+                  ),
+                  Text(
+                    '\$${cartProvider.getTotal(productProvider: productProvider)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: themeProvider.getIsDarkTheme
+                          ? Colors.black
+                          : Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                  elevation: 2,
-                  side: const BorderSide(width: 1, color: Colors.grey)),
-              onPressed: () {},
-              child: Text('data'),
+            Container(
+              decoration: BoxDecoration(
+                  color: themeProvider.getIsDarkTheme
+                      ? Colors.black
+                      : Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  )),
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'CHECKOUT',
+                    style: TextStyle(
+                        color: themeProvider.getIsDarkTheme
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -27,8 +27,7 @@ class ProfileScreen extends StatelessWidget {
                 visible: false,
                 child: Padding(
                   padding: EdgeInsets.all(20.0),
-                  child: TitlesTextWidget(
-                      label: 'Please login to have ulimate access'),
+                  child: Text('Please login to have ulimate access'),
                 ),
               ),
               const SizedBox(
@@ -61,8 +60,8 @@ class ProfileScreen extends StatelessWidget {
                     const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TitlesTextWidget(label: "Fuat EBUZEYNEB"),
-                        SubtitleTextWidget(label: "fuatebuzeyneb@gmail.com"),
+                        Text("Fuat EBUZEYNEB"),
+                        Text("fuatebuzeyneb@gmail.com"),
                       ],
                     ),
                   ],
@@ -76,21 +75,30 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const TitlesTextWidget(label: "General"),
+                    const Text("General"),
                     ProfileListTile(
                       imagePath: AppImagesPath.profileAllOrder,
                       text: "All orders",
-                      function: () {},
+                      function: () async {
+                        await Navigator.pushNamed(
+                            context, OrderScreen.routName);
+                      },
                     ),
                     ProfileListTile(
                       imagePath: AppImagesPath.profilewishlist,
                       text: "Wishlist",
-                      function: () {},
+                      function: () async {
+                        await Navigator.pushNamed(
+                            context, WishlistScreen.routName);
+                      },
                     ),
                     ProfileListTile(
                       imagePath: AppImagesPath.profileclock,
                       text: "Viewed recently",
-                      function: () {},
+                      function: () async {
+                        await Navigator.pushNamed(
+                            context, ViewedScreen.routName);
+                      },
                     ),
                     ProfileListTile(
                       imagePath: AppImagesPath.profilelocation,
@@ -103,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 7,
                     ),
-                    const TitlesTextWidget(label: "Settings"),
+                    const Text("Settings"),
                     const SizedBox(
                       height: 7,
                     ),
@@ -130,21 +138,18 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Center(
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        30,
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  icon: const Icon(Icons.login),
-                  label: const Text(
-                    "Login",
-                  ),
+              const SizedBox(
+                height: 7,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: ButtonWidgetOne(
+                  paddingVertical: 12,
+                  text: 'login',
+                  image: IconlyBold.login,
+                  fct: () async {
+                    await Navigator.pushNamed(context, LoginScreen.routName);
+                  },
                 ),
               ),
             ],
@@ -152,3 +157,12 @@ class ProfileScreen extends StatelessWidget {
         ));
   }
 }
+/*
+ DialogWarningFct.showDialogWarning(
+                        context: context,
+                        subtitle: 'Are you sure??',
+                        fct: () async {
+                         
+                        },
+                        isError: false);
+*/

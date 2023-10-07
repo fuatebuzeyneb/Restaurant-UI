@@ -26,11 +26,11 @@ class EmptyPageWidget extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            TitlesTextWidget(label: title),
+            Text(title),
             SizedBox(
               height: 10,
             ),
-            SubtitleTextWidget(label: subTitle),
+            Text(subTitle),
             SizedBox(
               height: 20,
             ),

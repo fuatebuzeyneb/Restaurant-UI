@@ -10,10 +10,7 @@ class AppBarTitle extends StatelessWidget {
       baseColor: Colors.black,
       highlightColor: Colors.pink,
       period: const Duration(seconds: 12),
-      child: TitlesTextWidget(
-        label: title,
-        fontSize: 20,
-      ),
+      child: Text(title),
     );
   }
 }
