@@ -30,7 +30,7 @@ part './view/cart/cart_screen.dart';
 part './view/search_screen.dart';
 part 'consts/app_images_path.dart';
 part './widgets/appbar/appbar_title.dart';
-part 'widgets/profile/profile_listTile.dart';
+
 part './widgets/images-design/image_design.dart';
 part './widgets/empty_page_widget.dart';
 part './view/cart/cart_widget.dart';
@@ -62,3 +62,5 @@ part './providers/wishlist_provider.dart';
 part './models/viewed_model.dart';
 part './providers/viewed_provider.dart';
 part './splash_screen.dart';
+
+part 'widgets/profile/profile_widget.dart';

@@ -38,7 +38,7 @@ class ProductDescriptionWidget extends StatelessWidget {
               getCurrProduct!.productDescription,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 18,
                 color:
                     themeProvider.getIsDarkTheme ? Colors.black : Colors.white,
               ),

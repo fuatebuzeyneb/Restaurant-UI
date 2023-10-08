@@ -39,7 +39,7 @@ class BottomCheckout extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$${cartProvider.getTotal(productProvider: productProvider)}',
+                    '\$${cartProvider.getTotal(productProvider: productProvider).toStringAsFixed(2)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,

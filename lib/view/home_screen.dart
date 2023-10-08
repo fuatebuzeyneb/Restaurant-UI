@@ -61,7 +61,9 @@ class HomeScreen extends StatelessWidget {
                 height: size.height * 0.27,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: productProvider.getProducts.length,
+                  itemCount: productProvider.getProducts.length <= 6
+                      ? productProvider.getProducts.length
+                      : 6,
                   itemBuilder: (context, index) {
                     return ChangeNotifierProvider.value(
                         value: productProvider.getProducts[index],

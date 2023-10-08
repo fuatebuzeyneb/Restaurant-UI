@@ -6,155 +6,188 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(40.0),
-          child: AppBar(
-            title: const Text('Profile Screen'),
-            //Text('Profile Screen'),
-            // AppBarTitle(title: 'Profile Screen'),
-            leading: Image.asset(
-              AppImagesPath.profilemenu,
-              color: themeProvider.getIsDarkTheme ? Colors.white : Colors.black,
+      body: Stack(
+        // clipBehavior: Clip.none,
+        children: [
+          Scaffold(
+            backgroundColor: themeProvider.getIsDarkTheme
+                ? AppColors.darkCardColor
+                : AppColors.lightCardColor,
+            appBar: AppBar(
+              backgroundColor: themeProvider.getIsDarkTheme
+                  ? AppColors.darkPrimaryColor
+                  : AppColors.lightPrimaryColor,
+              title: Text(
+                'Profile',
+                style: TextStyle(
+                    color: themeProvider.getIsDarkTheme
+                        ? Colors.black
+                        : Colors.white,
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Visibility(
-                visible: false,
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Text('Please login to have ulimate access'),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
+            body: Column(
+              children: [
+                Stack(
                   children: [
                     Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).cardColor,
-                        border: Border.all(
-                            color: Theme.of(context).colorScheme.background,
-                            width: 3),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+                      color: themeProvider.getIsDarkTheme
+                          ? AppColors.darkPrimaryColor
+                          : AppColors.lightPrimaryColor,
+                      height: size.height * 0.2,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.295,
                           ),
-                          fit: BoxFit.fill,
-                        ),
+                          ProfileWidget(
+                            title: 'All Product',
+                            image: AppImagesPath.profileAllOrder,
+                            fct: () async {
+                              await Navigator.pushNamed(
+                                  context, OrderScreen.routName);
+                            },
+                          ),
+                          ProfileWidget(
+                            title: 'Wishlist',
+                            image: AppImagesPath.profilewishlist,
+                            fct: () async {
+                              await Navigator.pushNamed(
+                                  context, WishlistScreen.routName);
+                            },
+                          ),
+                          ProfileWidget(
+                            title: 'Viewed recently',
+                            image: AppImagesPath.profileclock,
+                            fct: () async {
+                              await Navigator.pushNamed(
+                                  context, ViewedScreen.routName);
+                            },
+                          ),
+                          ProfileWidget(
+                              title: 'Address',
+                              image: AppImagesPath.profilelocation,
+                              fct: () {}),
+                          Row(
+                            //crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ProfileWidget(
+                                  title: themeProvider.getIsDarkTheme
+                                      ? 'dark'
+                                      : 'light',
+                                  image: themeProvider.getIsDarkTheme
+                                      ? AppImagesPath.profiledarkmode
+                                      : AppImagesPath.profilelightmode,
+                                  fct: () {}),
+                              SizedBox(
+                                width: 150,
+                              ),
+                              Switch(
+                                activeColor: Colors.black,
+                                activeTrackColor: AppColors.darkPrimaryColor,
+                                inactiveThumbColor: Colors.white,
+                                inactiveTrackColor: AppColors.lightPrimaryColor,
+                                value: themeProvider.getIsDarkTheme,
+                                onChanged: (value) {
+                                  themeProvider.setDarkTheme(themeValue: value);
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: ButtonWidgetOne(
+                              paddingVertical: 12,
+                              text: 'logout',
+                              image: IconlyBold.logout,
+                              fct: () async {
+                                await Navigator.pushNamed(
+                                    context, LoginScreen.routName);
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Fuat EBUZEYNEB"),
-                        Text("fuatebuzeyneb@gmail.com"),
-                      ],
                     ),
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 24,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("General"),
-                    ProfileListTile(
-                      imagePath: AppImagesPath.profileAllOrder,
-                      text: "All orders",
-                      function: () async {
-                        await Navigator.pushNamed(
-                            context, OrderScreen.routName);
-                      },
-                    ),
-                    ProfileListTile(
-                      imagePath: AppImagesPath.profilewishlist,
-                      text: "Wishlist",
-                      function: () async {
-                        await Navigator.pushNamed(
-                            context, WishlistScreen.routName);
-                      },
-                    ),
-                    ProfileListTile(
-                      imagePath: AppImagesPath.profileclock,
-                      text: "Viewed recently",
-                      function: () async {
-                        await Navigator.pushNamed(
-                            context, ViewedScreen.routName);
-                      },
-                    ),
-                    ProfileListTile(
-                      imagePath: AppImagesPath.profilelocation,
-                      text: "Address",
-                      function: () {},
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    const Text("Settings"),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    SwitchListTile(
-                      secondary: Image.asset(
-                        themeProvider.getIsDarkTheme
-                            ? AppImagesPath.profiledarkmode
-                            : AppImagesPath.profilelightmode,
-                        height: 30,
-                        color: themeProvider.getIsDarkTheme
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      value: themeProvider.getIsDarkTheme,
-                      onChanged: (value) {
-                        themeProvider.setDarkTheme(themeValue: value);
-                      },
-                      title:
-                          Text(themeProvider.getIsDarkTheme ? 'dark' : 'light'),
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 7,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: ButtonWidgetOne(
-                  paddingVertical: 12,
-                  text: 'login',
-                  image: IconlyBold.login,
-                  fct: () async {
-                    await Navigator.pushNamed(context, LoginScreen.routName);
-                  },
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ));
+          Positioned(
+            left: size.width * 0.05,
+            top: size.height * 0.13,
+            child: SizedBox(
+              height: size.height * 0.25,
+              width: size.width * 0.9,
+              child: Card(
+                elevation: 5,
+                color:
+                    themeProvider.getIsDarkTheme ? Colors.black : Colors.white,
+              ),
+            ),
+          ),
+          Positioned(
+            left: size.width * 0.22,
+            top: size.height * 0.17,
+            child: Column(
+              children: [
+                Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).cardColor,
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.background,
+                        width: 3),
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                        "https://images.unsplash.com/photo-1610088441520-4352457e7095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1lbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Fuat EBUZEYNEB",
+                  style: TextStyle(
+                      color: themeProvider.getIsDarkTheme
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 20),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "fuatebuzeyneb@gmail.com",
+                  style: TextStyle(
+                      color: themeProvider.getIsDarkTheme
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 /*

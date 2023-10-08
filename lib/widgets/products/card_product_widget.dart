@@ -135,6 +135,7 @@ class _CardProductWidgetState extends State<CardProductWidget> {
                     right: 13,
                     bottom: 1,
                     child: InkWell(
+                      borderRadius: BorderRadius.circular(50),
                       onTap: () {
                         if (cartProvider.isProductInCart(
                             productId: getCurrProduct.productId)) {

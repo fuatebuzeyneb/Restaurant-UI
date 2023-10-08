@@ -1,6 +1,7 @@
 part of '../../import_path.dart';
 
 class CartScreen extends StatelessWidget {
+  static const routName = 'CartScreen';
   const CartScreen({super.key});
   final bool isEmpty = false;
 

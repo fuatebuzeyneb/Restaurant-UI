@@ -215,7 +215,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           paddingHorizontal: 140,
                           paddingVertical: 12,
                           text: 'Login',
-                          fct: () {},
+                          fct: () async {
+                            await Navigator.pushNamed(
+                                context, RootScreen.routName);
+                          },
                         ),
                         const SizedBox(
                           height: 16.0,

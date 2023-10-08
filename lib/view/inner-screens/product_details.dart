@@ -46,15 +46,35 @@ class _ProductDetailsState extends State<ProductDetails> {
                         SizedBox(
                           height: 70,
                         ),
-                        Text(
-                          getCurrProduct.productTitle,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
-                            color: themeProvider.getIsDarkTheme
-                                ? Colors.black
-                                : Colors.white,
-                          ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 130,
+                            ),
+                            Text(
+                              getCurrProduct.productTitle,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26,
+                                color: themeProvider.getIsDarkTheme
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 80,
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.add_shopping_cart_rounded),
+                              color: themeProvider.getIsDarkTheme
+                                  ? Colors.black
+                                  : Colors.white,
+                              onPressed: () async {
+                                await Navigator.pushNamed(
+                                    context, CartScreen.routName);
+                              },
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 30,
@@ -201,22 +221,26 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
-                                    Positioned(
-                                      left: 00,
-                                      child: Image.asset(
-                                        getCurrProduct.productImage,
-                                        height: 50,
-                                        width: 50,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 30,
-                                      child: Image.asset(
-                                        getCurrProduct.productImage,
-                                        height: 50,
-                                        width: 50,
-                                      ),
-                                    ),
+                                    _quantityTextController.text == 1
+                                        ? SizedBox()
+                                        : Positioned(
+                                            left: 00,
+                                            child: Image.asset(
+                                              getCurrProduct.productImage,
+                                              height: 50,
+                                              width: 50,
+                                            ),
+                                          ),
+                                    _quantityTextController.text == 1
+                                        ? SizedBox()
+                                        : Positioned(
+                                            left: 30,
+                                            child: Image.asset(
+                                              getCurrProduct.productImage,
+                                              height: 50,
+                                              width: 50,
+                                            ),
+                                          ),
                                     Positioned(
                                       left: 60,
                                       child: Container(
@@ -296,37 +320,33 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: ButtonWidgetOne(
-                                    text: cartProvider.isProductInCart(
-                                            productId: getCurrProduct.productId)
-                                        ? "In cart"
-                                        : "Add to cart",
-                                    image: cartProvider.isProductInCart(
-                                            productId: getCurrProduct.productId)
-                                        ? Icons.check
-                                        : Icons.add_shopping_cart_rounded,
-                                    fct: () {
-                                      if (cartProvider.isProductInCart(
-                                          productId:
-                                              getCurrProduct.productId)) {
-                                        return;
-                                      }
-                                      cartProvider.addProductToCart(
-                                          productId: getCurrProduct.productId,
-                                          quantity: int.parse(
-                                              _quantityTextController.text));
-                                      Fluttertoast.showToast(
-                                          msg:
-                                              "The order has been added to the cart",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 1,
-                                          textColor: Colors.red,
-                                          fontSize: 16.0);
-                                    },
-                                  ),
+                                ButtonWidgetOne(
+                                  text: cartProvider.isProductInCart(
+                                          productId: getCurrProduct.productId)
+                                      ? "In cart"
+                                      : "Add to cart",
+                                  image: cartProvider.isProductInCart(
+                                          productId: getCurrProduct.productId)
+                                      ? Icons.check
+                                      : Icons.add_shopping_cart_rounded,
+                                  fct: () {
+                                    if (cartProvider.isProductInCart(
+                                        productId: getCurrProduct.productId)) {
+                                      return;
+                                    }
+                                    cartProvider.addProductToCart(
+                                        productId: getCurrProduct.productId,
+                                        quantity: int.parse(
+                                            _quantityTextController.text));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "The order has been added to the cart",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 1,
+                                        textColor: Colors.red,
+                                        fontSize: 16.0);
+                                  },
                                 ),
                               ],
                             ),
