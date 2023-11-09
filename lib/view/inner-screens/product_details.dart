@@ -48,8 +48,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                         Row(
                           children: [
-                            SizedBox(
-                              width: 130,
+                            Spacer(
+                              flex: 2,
                             ),
                             Text(
                               getCurrProduct.productTitle,
@@ -61,8 +61,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     : Colors.white,
                               ),
                             ),
-                            SizedBox(
-                              width: 80,
+                            Spacer(
+                              flex: 1,
                             ),
                             IconButton(
                               icon: Icon(Icons.add_shopping_cart_rounded),

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
           home: const SplashScreen(),
           routes: {
-            ProductDetails.routName: (context) => ProductDetails(),
+            ProductDetails.routName: (context) => const ProductDetails(),
             WishlistScreen.routName: (context) => const WishlistScreen(),
             ViewedScreen.routName: (context) => const ViewedScreen(),
             LoginScreen.routName: (context) => const LoginScreen(),

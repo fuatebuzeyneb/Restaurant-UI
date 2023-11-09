@@ -58,8 +58,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (_pickedImage == null) {
         DialogWarningFct.showDialogWarning(
             context: context,
-            subtitle: 'Make sure to pick up an image',
+            subtitle: "Make sure to pick up an image",
             fct: () {});
+        Fluttertoast.showToast(
+          msg: "An account has been created",
+          toastLength: Toast.LENGTH_SHORT,
+          textColor: Colors.white,
+        );
       }
     }
   }
